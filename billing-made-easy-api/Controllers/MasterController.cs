@@ -1,17 +1,16 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using billing_made_easy_api.Models;
-using billing_made_easy_api.Repositories.Interfaces;
 using billing_made_easy_api.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace billing_made_easy_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class MasterController : ControllerBase
     {        
         private IMasterService _masterService;
