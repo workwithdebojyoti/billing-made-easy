@@ -25,6 +25,9 @@ namespace billing_made_easy_api.Services.Implementations
             _deliveryRepository.Insert(deliveryDetail);
         }
 
-
+        public int FetchLastInsertedDeliveryId()
+        {
+            return _deliveryRepository.FetchLastInsertedDeliveryId();
+        }
     }
 }

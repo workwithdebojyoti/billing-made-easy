@@ -19,9 +19,11 @@ namespace billing_made_easy_api.Controllers
             _paymentDetailsService = paymentDetailsService;
         }
         [HttpPost]
-        public async Task AddPaymentDetails(PaymentDetailsVM paymentDetails)
+        public async Task<IActionResult> AddPaymentDetails(PaymentDetailsVM paymentDetails)
         {
             await _paymentDetailsService.AddPaymentDetails(paymentDetails);
+            var lastInsertedPaymentId = _paymentDetailsService.FetchRecentPaymentId();
+            return Ok(lastInsertedPaymentId);
         }
         [HttpGet]
         public async Task<IEnumerable<PaymentDetailsVM>> FetchAllPaymentDetails()

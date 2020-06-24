@@ -8,5 +8,6 @@ namespace billing_made_easy_api.Repositories.Interfaces
 {
     public interface IDeliveryRepository : IRepository<DeliveryDetails>
     {
+        int FetchLastInsertedDeliveryId();
     }
 }

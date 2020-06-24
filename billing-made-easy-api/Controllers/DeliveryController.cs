@@ -24,7 +24,8 @@ namespace billing_made_easy_api.Controllers
             try
             {
                 _deliveryService.AddDeliveryDetails(deliveryDetails);
-                return Ok();
+                var deliveryId = _deliveryService.FetchLastInsertedDeliveryId();
+                return Ok(deliveryId);
             }
             catch(Exception ex)
             {
@@ -32,5 +33,7 @@ namespace billing_made_easy_api.Controllers
             }
             
         }
+
+        
     }
 }

@@ -14,5 +14,11 @@ namespace billing_made_easy_api.Services.Interfaces
         /// <param name="deliveryDetails"></param>
 
         void AddDeliveryDetails(DeliveryDetailsVM deliveryDetails);
+
+        /// <summary>
+        /// Fetches the last generated Delivery Id
+        /// </summary>
+        /// <returns></returns>
+        int FetchLastInsertedDeliveryId();
     }
 }

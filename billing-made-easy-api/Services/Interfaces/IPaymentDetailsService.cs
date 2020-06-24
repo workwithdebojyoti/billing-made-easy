@@ -28,5 +28,10 @@ namespace billing_made_easy_api.Services.Interfaces
         /// </summary>
         /// <param name="paymentDetailsVM"></param>
         void UpdatePaymentDetails(PaymentDetailsVM paymentDetailsVM);
+        /// <summary>
+        /// Returns the recent payment id
+        /// </summary>
+        /// <returns></returns>
+        int FetchRecentPaymentId();
     }
 }

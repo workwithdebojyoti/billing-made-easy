@@ -42,5 +42,10 @@ namespace billing_made_easy_api.Services.Implementations
             var paymentDetails = _mapper.Map<PaymentDetailsVM, PaymentDetails>(paymentDetailsVM);
             _paymentDetailsRepository.Update(paymentDetails);
         }
+
+        public int FetchRecentPaymentId()
+        {
+            return _paymentDetailsRepository.FetchLastInsertedPaymentId();
+        }
     }
 }
