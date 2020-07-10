@@ -24,6 +24,7 @@ namespace billing_made_easy_api
 {
     public class Startup
     {
+        private string[] allowedOrigins = new string[] { "http://localhost:4200" };
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -61,9 +62,17 @@ namespace billing_made_easy_api
             services.AddAutoMapper(typeof(Startup));
 
             // Register cors
-            services.AddCors(c =>
+            //services.AddCors(c =>
+            //{
+            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            //});
+            services.AddCors(options =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                options.AddPolicy("MyCorsPolicy", builder => builder
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .WithHeaders("Accept", "Content-Type", "Origin", "X-My-Header"));
             });
         }
 
@@ -93,7 +102,12 @@ namespace billing_made_easy_api
             app.UseMvc();
 
 
-            app.UseCors(options => options.AllowAnyOrigin());
+            //app.UseCors(options => {
+            //    options.SetIsOriginAllowedToAllowWildcardSubdomains().WithOrigins(allowedOrigins);
+            //    options.AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+            //    //options.AllowAnyOrigin();
+            //});
+            app.UseCors("MyCorsPolicy");
         }
     }
 }

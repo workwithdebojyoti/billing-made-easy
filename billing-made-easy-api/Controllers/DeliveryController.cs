@@ -9,7 +9,7 @@ namespace billing_made_easy_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")]
+    [EnableCors("MyCorsPolicy")]
     public class DeliveryController : ControllerBase
     {
         private IDeliveryService _deliveryService;

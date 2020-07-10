@@ -10,7 +10,7 @@ namespace billing_made_easy_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")]
+    [EnableCors("MyCorsPolicy")]
     public class BillController : ControllerBase
     {
         private IBillService _billService;
@@ -24,7 +24,7 @@ namespace billing_made_easy_api.Controllers
             try
             {
                 _billService.AddBill(bill);
-                return Ok();
+                return Ok(true);
             }
             
             catch (Exception ex)

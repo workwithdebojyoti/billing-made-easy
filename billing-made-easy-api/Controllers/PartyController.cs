@@ -10,7 +10,8 @@ namespace billing_made_easy_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")]
+    [EnableCors("MyCorsPolicy")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PartyController : ControllerBase
     {
         IPartyService _partyService;
