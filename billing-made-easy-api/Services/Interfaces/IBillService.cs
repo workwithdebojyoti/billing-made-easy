@@ -24,5 +24,20 @@ namespace billing_made_easy_api.Services.Interfaces
         /// </summary>
         /// <param name="billVM"></param>
         void UpdateBill(BillVM billVM);
+        /// <summary>
+        /// Fetches all bills for a particular organisation for a particular month
+        /// </summary>
+        /// <param name="organisation"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        Task<List<BillDetailsVM>> FetchAllBill(string organisation, int month, int year);
+        /// <summary>
+        /// Fetches all bill details of a financial year
+        /// </summary>
+        /// <param name="organisation"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        Task<List<BillDetailsVM>> FetchAllBill(string organisation, int year);
     }
 }

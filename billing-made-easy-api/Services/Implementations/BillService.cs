@@ -36,5 +36,21 @@ namespace billing_made_easy_api.Services.Implementations
             var bill = _mapper.Map<Bill>(billVM);
             _billRepository.Update(bill);
         }
+
+        public async Task<List<BillDetailsVM>> FetchAllBill(string organisation, int month, int year)
+        {
+            var startDate = new DateTime(year, month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+            var bills = await _billRepository.FetchAllBill(organisation, startDate, endDate);
+            return bills;
+        }
+
+        public async Task<List<BillDetailsVM>> FetchAllBill(string organisation, int year)
+        {
+            var startDate = new DateTime(year, 4, 1);
+            var endDate = startDate.AddYears(1).AddDays(-1);
+            var bills = await _billRepository.FetchAllBill(organisation, startDate, endDate);
+            return bills;
+        }
     }
 }

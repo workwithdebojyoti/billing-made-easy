@@ -58,5 +58,37 @@ namespace billing_made_easy_api.Controllers
                 return BadRequest(ex);
             }
         }
+        [HttpGet("organisation/{organisation}/month/{month}/year/{year}")]
+        public async Task<IActionResult> FetchAllBills(string organisation, int month, int year = 1992)
+        {
+            try
+            {
+                if (year == 1992) 
+                    year = DateTime.Now.Year;
+                var bills = await _billService.FetchAllBill(organisation, month, year);
+                return Ok(bills);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("organisation/{organisation}/financialyear/{year}")]
+        public async Task<IActionResult> FetchAllBills(string organisation, int year = 1992)
+        {
+            try
+            {
+                if (year == 1992)
+                    year = DateTime.Now.Year;
+                var bills = await _billService.FetchAllBill(organisation, year);
+                return Ok(bills);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
