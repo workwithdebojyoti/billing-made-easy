@@ -38,7 +38,7 @@ namespace billing_made_easy_api.Models
             modelBuilder.Entity<Bill>(entity =>
             {
                 entity.HasIndex(e => e.BillNumber)
-                    .HasName("UQ__Bill__8C4311118871A095")
+                    .HasName("UQ__Bill__8C4311118D54FC88")
                     .IsUnique();
 
                 entity.Property(e => e.BillDate)
@@ -93,17 +93,17 @@ namespace billing_made_easy_api.Models
                 entity.HasOne(d => d.RefDelivery)
                     .WithMany(p => p.Bill)
                     .HasForeignKey(d => d.RefDeliveryId)
-                    .HasConstraintName("FK__Bill__refDeliver__3A4CA8FD");
+                    .HasConstraintName("FK__Bill__refDeliver__04E4BC85");
 
                 entity.HasOne(d => d.RefParty)
                     .WithMany(p => p.Bill)
                     .HasForeignKey(d => d.RefPartyId)
-                    .HasConstraintName("FK__Bill__refPartyId__3864608B");
+                    .HasConstraintName("FK__Bill__refPartyId__06CD04F7");
 
                 entity.HasOne(d => d.RefPayment)
                     .WithMany(p => p.Bill)
                     .HasForeignKey(d => d.RefPaymentId)
-                    .HasConstraintName("FK__Bill__refPayment__395884C4");
+                    .HasConstraintName("FK__Bill__refPayment__08B54D69");
             });
 
             modelBuilder.Entity<DeliveryDetails>(entity =>
@@ -136,11 +136,11 @@ namespace billing_made_easy_api.Models
             modelBuilder.Entity<PartyDetails>(entity =>
             {
                 entity.HasIndex(e => e.GstNumber)
-                    .HasName("UQ__PartyDet__4FB704C429DB327E")
+                    .HasName("UQ__PartyDet__4FB704C4EAF3C911")
                     .IsUnique();
 
                 entity.HasIndex(e => e.PanNumber)
-                    .HasName("UQ__PartyDet__3DACD6BAED8EBC28")
+                    .HasName("UQ__PartyDet__3DACD6BAC9376882")
                     .IsUnique();
 
                 entity.Property(e => e.AddressLine)
@@ -184,6 +184,10 @@ namespace billing_made_easy_api.Models
 
             modelBuilder.Entity<PaymentDetails>(entity =>
             {
+                entity.Property(e => e.BillAmount)
+                    .HasColumnName("billAmount")
+                    .HasColumnType("numeric(15, 3)");
+
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("createdAt")
                     .HasColumnType("date")
@@ -198,14 +202,7 @@ namespace billing_made_easy_api.Models
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.PaymentMode)
-                    .HasColumnName("paymentMode")
-                    .HasMaxLength(100)
-                    .HasDefaultValueSql("('Cash')");
-
-                entity.Property(e => e.PaymentReceived)
-                    .HasColumnName("paymentReceived")
-                    .HasColumnType("numeric(15, 3)");
+                entity.Property(e => e.PaymentMode).HasColumnName("paymentMode");
 
                 entity.Property(e => e.PaymentReferenceNumber)
                     .HasColumnName("paymentReferenceNumber")
@@ -214,22 +211,25 @@ namespace billing_made_easy_api.Models
 
                 entity.Property(e => e.PaymentStatus).HasColumnName("paymentStatus");
 
-                entity.Property(e => e.PaymentType).HasColumnName("paymentType");
+                entity.Property(e => e.PaymentType)
+                    .HasColumnName("paymentType")
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("('Expense')");
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnName("updatedAt")
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
+                entity.HasOne(d => d.PaymentModeNavigation)
+                    .WithMany(p => p.PaymentDetails)
+                    .HasForeignKey(d => d.PaymentMode)
+                    .HasConstraintName("FK__PaymentDe__payme__7B5B524B");
+
                 entity.HasOne(d => d.PaymentStatusNavigation)
                     .WithMany(p => p.PaymentDetails)
                     .HasForeignKey(d => d.PaymentStatus)
-                    .HasConstraintName("FK__PaymentDe__payme__29221CFB");
-
-                entity.HasOne(d => d.PaymentTypeNavigation)
-                    .WithMany(p => p.PaymentDetails)
-                    .HasForeignKey(d => d.PaymentType)
-                    .HasConstraintName("FK__PaymentDe__payme__282DF8C2");
+                    .HasConstraintName("FK__PaymentDe__payme__7C4F7684");
             });
 
             modelBuilder.Entity<PaymentStatusMaster>(entity =>

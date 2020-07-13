@@ -54,7 +54,8 @@ namespace billing_made_easy_api.Repositories.Implementations
                                           PaymentReferenceNumber = paymentDetails.PaymentReferenceNumber,
                                           PaymentType = paymentDetails.PaymentType,
                                           CreatedAt = paymentDetails.CreatedAt,
-                                          UpdatedAt = paymentDetails.UpdatedAt
+                                          UpdatedAt = paymentDetails.UpdatedAt,
+                                          BillAmount = paymentDetails.BillAmount
                                       },
                                       PartyDetails = new PartyDetailsVM
                                       {
