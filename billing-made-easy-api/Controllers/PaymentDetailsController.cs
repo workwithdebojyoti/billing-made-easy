@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using billing_made_easy_api.Services.Interfaces;
@@ -37,9 +38,17 @@ namespace billing_made_easy_api.Controllers
         }
 
         [HttpPut]
-        public void UpdatePaymentDetails(PaymentDetailsVM paymentDetails)
+        public async Task<IActionResult> UpdatePaymentDetails(PaymentDetailsVM paymentDetails)
         {
-            _paymentDetailsService.UpdatePaymentDetails(paymentDetails);
+            try
+            {
+                await _paymentDetailsService.UpdatePaymentDetails(paymentDetails);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

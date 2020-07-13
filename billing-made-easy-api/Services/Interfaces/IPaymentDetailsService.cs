@@ -27,7 +27,7 @@ namespace billing_made_easy_api.Services.Interfaces
         /// Updates payment details
         /// </summary>
         /// <param name="paymentDetailsVM"></param>
-        void UpdatePaymentDetails(PaymentDetailsVM paymentDetailsVM);
+        Task UpdatePaymentDetails(PaymentDetailsVM paymentDetailsVM);
         /// <summary>
         /// Returns the recent payment id
         /// </summary>

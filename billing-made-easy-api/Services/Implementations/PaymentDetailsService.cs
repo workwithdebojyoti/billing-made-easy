@@ -37,10 +37,18 @@ namespace billing_made_easy_api.Services.Implementations
             return _mapper.Map<PaymentDetailsVM>(paymentDetail);
         }
 
-        public void UpdatePaymentDetails(PaymentDetailsVM paymentDetailsVM)
+        public async Task UpdatePaymentDetails(PaymentDetailsVM paymentDetailsVM)
         {
-            var paymentDetails = _mapper.Map<PaymentDetailsVM, PaymentDetails>(paymentDetailsVM);
-            _paymentDetailsRepository.Update(paymentDetails);
+            var paymentDetailsDB = await _paymentDetailsRepository.GetById(paymentDetailsVM.Id);
+            paymentDetailsDB.PaymentAmount = paymentDetailsVM.PaymentAmount;
+            paymentDetailsDB.PaymentDate = DateTime.Now;
+            paymentDetailsDB.PaymentMode = paymentDetailsVM.PaymentMode;
+            paymentDetailsDB.PaymentStatus = paymentDetailsVM.PaymentStatus;
+            paymentDetailsDB.PaymentType = paymentDetailsVM.PaymentType;
+            paymentDetailsDB.UpdatedAt = DateTime.Now;
+            paymentDetailsDB.PaymentReferenceNumber = paymentDetailsVM.PaymentReferenceNumber;
+            //var paymentDetails = _mapper.Map<PaymentDetailsVM, PaymentDetails>(paymentDetailsVM);
+            _paymentDetailsRepository.Update(paymentDetailsDB);
         }
 
         public int FetchRecentPaymentId()
